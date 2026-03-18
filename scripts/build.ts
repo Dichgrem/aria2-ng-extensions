@@ -13,11 +13,11 @@ const DIST_DIR = path.join(ROOT_DIR, 'dist');
 
 const BUILD_CONFIG: Record<string, { name: string; manifest: string }> = {
   firefox: {
-    name: 'aria2-ng-extension-firefox',
+    name: 'aria2-helper-firefox',
     manifest: 'manifest.json'
   },
   chrome: {
-    name: 'aria2-ng-extension-chrome',
+    name: 'aria2-helper-chrome',
     manifest: 'manifest.json'
   }
 };

@@ -1,15 +1,11 @@
 {
   "extName": {
-    "message": "AriaNg Download Manager",
+    "message": "Aria2-helper",
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "Automatically intercept downloads to aria2 with AriaNg UI",
+    "message": "Automatically intercept downloads to aria2",
     "description": "Extension description"
-  },
-  "toggleCaptureDownloads": {
-    "message": "Toggle Capture Downloads",
-    "description": "Toggle capture downloads command"
   },
   "downloadAdded": {
     "message": "Download added to Aria2",
@@ -19,16 +15,8 @@
     "message": "Failed to add download to Aria2",
     "description": "Download error notification"
   },
-  "captureEnabled": {
-    "message": "Capture enabled",
-    "description": "Capture enabled notification"
-  },
-  "captureDisabled": {
-    "message": "Capture disabled",
-    "description": "Capture disabled notification"
-  },
   "settingsTitle": {
-    "message": "AriaNg Download Manager Settings",
+    "message": "Aria2-helper Settings",
     "description": "Settings page title"
   },
   "rpcHost": {
@@ -50,26 +38,6 @@
   "saveSettings": {
     "message": "Save Settings",
     "description": "Save settings button"
-  },
-  "autoCapture": {
-    "message": "Auto Capture Downloads",
-    "description": "Auto capture downloads setting"
-  },
-  "excludedProtocols": {
-    "message": "Excluded Protocols",
-    "description": "Excluded protocols setting"
-  },
-  "excludedSites": {
-    "message": "Excluded Sites",
-    "description": "Excluded sites setting"
-  },
-  "excludedFileTypes": {
-    "message": "Excluded File Types",
-    "description": "Excluded file types setting"
-  },
-  "minFileSize": {
-    "message": "Min File Size (bytes)",
-    "description": "Min file size setting"
   },
   "showNotifications": {
     "message": "Show Notifications",

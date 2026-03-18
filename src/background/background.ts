@@ -190,7 +190,7 @@ function updateContextMenu(): void {
     });
 
     chrome.contextMenus.create({
-      title: 'Open AriaNg',
+      title: 'Open Aria2',
       parentId: 'ariang-main',
       id: 'ariang-open',
       contexts: ['link', 'selection']

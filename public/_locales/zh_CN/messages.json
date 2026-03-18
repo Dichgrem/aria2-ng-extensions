@@ -1,15 +1,11 @@
 {
   "extName": {
-    "message": "AriaNg 下载管理器",
+    "message": "Aria2-helper",
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "使用 AriaNg UI 自动拦截下载到 aria2",
+    "message": "自动拦截下载到 aria2",
     "description": "Extension description"
-  },
-  "toggleCaptureDownloads": {
-    "message": "切换下载拦截",
-    "description": "Toggle capture downloads command"
   },
   "downloadAdded": {
     "message": "下载已添加到 Aria2",
@@ -19,16 +15,8 @@
     "message": "添加下载到 Aria2 失败",
     "description": "Download error notification"
   },
-  "captureEnabled": {
-    "message": "已开启下载拦截",
-    "description": "Capture enabled notification"
-  },
-  "captureDisabled": {
-    "message": "已关闭下载拦截",
-    "description": "Capture disabled notification"
-  },
   "settingsTitle": {
-    "message": "AriaNg 下载管理器设置",
+    "message": "Aria2-helper 设置",
     "description": "Settings page title"
   },
   "rpcHost": {
@@ -50,26 +38,6 @@
   "saveSettings": {
     "message": "保存设置",
     "description": "Save settings button"
-  },
-  "autoCapture": {
-    "message": "自动拦截下载",
-    "description": "Auto capture downloads setting"
-  },
-  "excludedProtocols": {
-    "message": "排除协议",
-    "description": "Excluded protocols setting"
-  },
-  "excludedSites": {
-    "message": "排除网站",
-    "description": "Excluded sites setting"
-  },
-  "excludedFileTypes": {
-    "message": "排除文件类型",
-    "description": "Excluded file types setting"
-  },
-  "minFileSize": {
-    "message": "最小文件大小（字节）",
-    "description": "Min file size setting"
   },
   "showNotifications": {
     "message": "显示通知",

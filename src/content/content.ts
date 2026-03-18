@@ -4,4 +4,4 @@ chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
   }
 });
 
-console.log('AriaNg Download Manager content script loaded');
+console.log('Aria2-helper content script loaded');
