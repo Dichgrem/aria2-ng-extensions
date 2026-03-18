@@ -58,25 +58,7 @@
       color: #333;
     }
 
-    .status {
-      padding: 10px;
-      border-radius: 4px;
-      margin-bottom: 10px;
-      font-size: 12px;
-      text-align: center;
-    }
-
-    .status.enabled {
-      background: #d4edda;
-      color: #155724;
-    }
-
-    .status.disabled {
-      background: #f8d7da;
-      color: #721c24;
-    }
-
-    . shortcuts {
+    .hint {
       font-size: 11px;
       color: #666;
       text-align: center;
@@ -90,14 +72,11 @@
   <div class="container">
     <h1 aria-label="Extension Name">AriaNg Download Manager</h1>
 
-    <div id="captureStatus" class="status">Loading...</div>
-
     <button id="openAriang" class="btn">Open AriaNg</button>
     <button id="openSettings" class="btn btn-secondary">Settings</button>
 
-    <div class="shortcuts">
-      Ctrl+Shift+D: Toggle Capture<br>
-      Right-click: Download with Aria2
+    <div class="hint">
+      Right-click any link to download with Aria2
     </div>
   </div>
 

@@ -3,11 +3,6 @@ interface Settings {
   rpcPort: number;
   rpcProtocol: string;
   rpcSecret: string;
-  autoCapture: boolean;
-  excludedProtocols: string[];
-  excludedSites: string[];
-  excludedFileTypes: string[];
-  minFileSize: number;
   showNotifications: boolean;
 }
 
@@ -16,11 +11,6 @@ const defaultSettings: Settings = {
   rpcPort: 6800,
   rpcProtocol: 'http',
   rpcSecret: '',
-  autoCapture: true,
-  excludedProtocols: ['data:', 'blob:', 'file:'],
-  excludedSites: [],
-  excludedFileTypes: [],
-  minFileSize: 0,
   showNotifications: true
 };
 
@@ -34,24 +24,7 @@ async function loadSettings(): Promise<void> {
   getEl<HTMLInputElement>('rpcPort').value = settings.rpcPort.toString();
   getEl<HTMLSelectElement>('rpcProtocol').value = settings.rpcProtocol;
   getEl<HTMLInputElement>('rpcSecret').value = settings.rpcSecret || '';
-  getEl<HTMLInputElement>('autoCapture').checked = settings.autoCapture;
   getEl<HTMLInputElement>('showNotifications').checked = settings.showNotifications;
-  getEl<HTMLInputElement>('minFileSize').value = settings.minFileSize.toString();
-
-  const excludedProtocols = Array.isArray(settings.excludedProtocols)
-    ? settings.excludedProtocols
-    : String(settings.excludedProtocols).split('\n').filter(Boolean);
-  getEl<HTMLTextAreaElement>('excludedProtocols').value = excludedProtocols.join('\n');
-
-  const excludedSites = Array.isArray(settings.excludedSites)
-    ? settings.excludedSites
-    : String(settings.excludedSites).split('\n').filter(Boolean);
-  getEl<HTMLTextAreaElement>('excludedSites').value = excludedSites.join('\n');
-
-  const excludedFileTypes = Array.isArray(settings.excludedFileTypes)
-    ? settings.excludedFileTypes
-    : String(settings.excludedFileTypes).split('\n').filter(Boolean);
-  getEl<HTMLTextAreaElement>('excludedFileTypes').value = excludedFileTypes.join('\n');
 
   testConnection();
 }
@@ -62,24 +35,7 @@ async function saveSettings(): Promise<void> {
     rpcPort: parseInt(getEl<HTMLInputElement>('rpcPort').value) || 6800,
     rpcProtocol: getEl<HTMLSelectElement>('rpcProtocol').value,
     rpcSecret: getEl<HTMLInputElement>('rpcSecret').value,
-    autoCapture: getEl<HTMLInputElement>('autoCapture').checked,
-    showNotifications: getEl<HTMLInputElement>('showNotifications').checked,
-    minFileSize: parseInt(getEl<HTMLInputElement>('minFileSize').value) || 0,
-    excludedProtocols: getEl<HTMLTextAreaElement>('excludedProtocols')
-      .value
-      .split('\n')
-      .map((line: string) => line.trim())
-      .filter(Boolean),
-    excludedSites: getEl<HTMLTextAreaElement>('excludedSites')
-      .value
-      .split('\n')
-      .map((line: string) => line.trim())
-      .filter(Boolean),
-    excludedFileTypes: getEl<HTMLTextAreaElement>('excludedFileTypes')
-      .value
-      .split('\n')
-      .map((line: string) => line.trim())
-      .filter(Boolean)
+    showNotifications: getEl<HTMLInputElement>('showNotifications').checked
   };
 
   try {

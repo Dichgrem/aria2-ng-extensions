@@ -3,11 +3,6 @@ interface Settings {
   rpcPort: number;
   rpcProtocol: string;
   rpcSecret: string;
-  autoCapture: boolean;
-  excludedProtocols: string[];
-  excludedSites: string[];
-  excludedFileTypes: string[];
-  minFileSize: number;
   showNotifications: boolean;
 }
 
@@ -24,24 +19,17 @@ const DEFAULT_SETTINGS: Settings = {
   rpcPort: 6800,
   rpcProtocol: 'http',
   rpcSecret: '',
-  autoCapture: true,
-  excludedProtocols: ['data:', 'blob:', 'file:'],
-  excludedSites: [],
-  excludedFileTypes: [],
-  minFileSize: 0,
   showNotifications: true
 };
 
 const ARIA2_ID = 'aria2-ng-extension-' + Date.now();
 
 let settings: Settings = { ...DEFAULT_SETTINGS };
-let isCapturing = false;
 let rpcUrl: string | null = null;
 
 async function loadSettings(): Promise<void> {
   const stored = await chrome.storage.local.get('settings');
   settings = stored.settings ? { ...DEFAULT_SETTINGS, ...stored.settings } : DEFAULT_SETTINGS;
-  isCapturing = settings.autoCapture;
   connectToAria2();
   updateContextMenu();
 }
@@ -102,43 +90,6 @@ function sendAria2Request(method: string, params: unknown[] = []): Promise<unkno
     
     xhr.send(body);
   });
-}
-
-function shouldCaptureDownload(downloadItem: DownloadItem): boolean {
-  if (!settings.autoCapture || !isCapturing) {
-    return false;
-  }
-
-  try {
-    const url = new URL(downloadItem.url);
-
-    if (settings.excludedProtocols.includes(url.protocol)) {
-      return false;
-    }
-
-    if (settings.excludedSites.some(site => url.hostname.includes(site))) {
-      return false;
-    }
-
-    const filename = downloadItem.filename || '';
-    if (settings.excludedFileTypes.length > 0) {
-      const fileExtension = url.pathname.split('.').pop()?.toLowerCase();
-      if (fileExtension && settings.excludedFileTypes.includes(fileExtension)) {
-        return false;
-      }
-    }
-
-    if (settings.minFileSize > 0 && downloadItem.totalBytes && downloadItem.totalBytes > 0) {
-      if (downloadItem.totalBytes < settings.minFileSize) {
-        return false;
-      }
-    }
-
-    return true;
-  } catch (error) {
-    console.error('Error checking download:', error);
-    return false;
-  }
 }
 
 async function getCookies(url: string, tabId?: number): Promise<string> {
@@ -248,10 +199,6 @@ function updateContextMenu(): void {
 }
 
 chrome.downloads.onCreated.addListener(async (downloadItem: DownloadItem) => {
-  if (!shouldCaptureDownload(downloadItem)) {
-    return;
-  }
-
   try {
     await chrome.downloads.cancel(downloadItem.id);
   } catch (e) {
@@ -293,16 +240,6 @@ chrome.contextMenus.onClicked.addListener(async (info: chrome.contextMenus.OnCli
   }
 });
 
-chrome.commands.onCommand.addListener((command: string) => {
-  if (command === 'toggle_capture_downloads') {
-    isCapturing = !isCapturing;
-    const message = isCapturing
-      ? chrome.i18n.getMessage('captureEnabled')
-      : chrome.i18n.getMessage('captureDisabled');
-    showNotification(message);
-  }
-});
-
 chrome.runtime.onInstalled.addListener(() => {
   loadSettings();
   updateContextMenu();
@@ -310,7 +247,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 chrome.storage.onChanged.addListener((changes: Record<string, chrome.storage.StorageChange>, area: string) => {
   if (area === 'local' && changes.settings) {
-loadSettings();
+    loadSettings();
   }
 });
 

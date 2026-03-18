@@ -3,13 +3,11 @@ interface Settings {
   rpcPort: number;
   rpcProtocol: string;
   rpcSecret: string;
-  autoCapture: boolean;
 }
 
 const getEl = <T extends HTMLElement>(id: string): T => document.getElementById(id) as T;
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const captureStatus = getEl<HTMLDivElement>('captureStatus');
   const openAriangBtn = getEl<HTMLButtonElement>('openAriang');
   const openSettingsBtn = getEl<HTMLButtonElement>('openSettings');
 
@@ -18,17 +16,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     rpcHost: 'localhost',
     rpcPort: 6800,
     rpcProtocol: 'http',
-    rpcSecret: '',
-    autoCapture: true
+    rpcSecret: ''
   };
-
-  if (settings.autoCapture) {
-    captureStatus.textContent = 'Auto Capture: Enabled';
-    captureStatus.className = 'status enabled';
-  } else {
-    captureStatus.textContent = 'Auto Capture: Disabled';
-    captureStatus.className = 'status disabled';
-  }
 
   openAriangBtn.addEventListener('click', () => {
     const protocol = settings.rpcProtocol === 'https' ? 'https' : 'http';

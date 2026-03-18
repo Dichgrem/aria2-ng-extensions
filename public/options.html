@@ -80,24 +80,13 @@
     .checkbox-group {
       display: flex;
       align-items: center;
-     gap: 10px;
+      gap: 10px;
     }
 
     input[type="checkbox"] {
       width: 20px;
       height: 20px;
       cursor: pointer;
-    }
-
-    .textarea-group textarea {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #e0e0e0;
-      border-radius: 6px;
-      font-size: 14px;
-      min-height: 100px;
-      resize: vertical;
-      font-family: monospace;
     }
 
     .help-text {
@@ -216,53 +205,12 @@
     </div>
 
     <div class="section">
-      <h2 aria-label="Download Capture Settings">Download Capture Settings</h2>
-
-      <div class="form-group">
-        <div class="checkbox-group">
-          <input type="checkbox" id="autoCapture" checked>
-          <label for="autoCapture">Auto Capture Downloads</label>
-        </div>
-        <p class="help-text">Automatically intercept downloads and send them to aria2</p>
-      </div>
+      <h2 aria-label="Notifications">Notifications</h2>
 
       <div class="form-group">
         <div class="checkbox-group">
           <input type="checkbox" id="showNotifications" checked>
           <label for="showNotifications">Show Notifications</label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="minFileSize">Min File Size (bytes)</label>
-        <input type="number" id="minFileSize" placeholder="0" value="0">
-        <p class="help-text">Only capture files larger than this size (0 = no limit)</p>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2 aria-label="Filters">Filters</h2>
-
-      <div class="form-group">
-        <label for="excludedProtocols">Excluded Protocols (one per line)</label>
-        <div class="textarea-group">
-          <textarea id="excludedProtocols" placeholder="data:&#10;blob:&#10;file:">data:
-blob:
-file:</textarea>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="excludedSites">Excluded Sites (one per line)</label>
-        <div class="textarea-group">
-          <textarea id="excludedSites" placeholder="example.com&#10;another.com"></textarea>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="excludedFileTypes">Excluded File Types (one per line, without dot)</label>
-        <div class="textarea-group">
-          <textarea id="excludedFileTypes" placeholder="html&#10;css&#10;js"></textarea>
         </div>
       </div>
     </div>
