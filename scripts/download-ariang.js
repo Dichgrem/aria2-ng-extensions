@@ -3,6 +3,7 @@
 // scripts/download-ariang.js - Download latest AriaNg
 
 import https from 'https';
+import http from 'http';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -14,7 +15,7 @@ const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.join(__dirname, '..');
 const ARIANG_DIR = path.join(ROOT_DIR, 'public', 'ariang');
 
-const ARIANG_DOWNLOAD_URL = 'https://github.com/mayswind/AriaNg/releases/latest/download/AriaNg-AllInOne.zip';
+const ARIANG_DOWNLOAD_URL = 'https://github.com/mayswind/AriaNg/releases/download/1.3.13/AriaNg-1.3.13-AllInOne.zip';
 
 async function downloadFile(url, dest) {
   console.log(`Downloading ${url}...`);
@@ -22,11 +23,22 @@ async function downloadFile(url, dest) {
   return new Promise((resolve, reject) => {
     const file = fs.createWriteStream(dest);
 
-    https.get(url, {
+    const protocol = url.startsWith('https') ? https : http;
+
+    protocol.get(url, {
       headers: {
         'User-Agent': 'aria2-ng-extension'
       }
     }, (response) => {
+      if (response.statusCode === 301 || response.statusCode === 302) {
+        const redirectUrl = response.headers.location;
+        console.log(`Redirecting to ${redirectUrl}...`);
+        file.close();
+        fs.unlinkSync(dest);
+        downloadFile(redirectUrl, dest).then(resolve).catch(reject);
+        return;
+      }
+
       if (response.statusCode !== 200) {
         reject(new Error(`Download failed with status ${response.statusCode}`));
         return;

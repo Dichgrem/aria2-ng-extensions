@@ -32,16 +32,16 @@ A browser extension that automatically intercepts downloads and sends them to yo
 
 ```bash
 # Install dependencies
-npm install
+bun install
 
 # Download AriaNg
-npm run download:ariang
+bun run download:ariang
 
 # Build for Firefox (recommended)
-npm run build:firefox
+bun run build:firefox
 
 # Development mode (with watch)
-npm run dev:firefox
+bun run dev:firefox
 ```
 
 ### Load in Browser
