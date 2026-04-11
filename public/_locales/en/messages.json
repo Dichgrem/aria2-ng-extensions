@@ -1,46 +1,46 @@
 {
-  "extName": {
-    "message": "Aria2-helper",
-    "description": "Extension name"
-  },
-  "extDescription": {
-    "message": "Automatically intercept downloads to aria2",
-    "description": "Extension description"
-  },
-  "downloadAdded": {
-    "message": "Download added to Aria2",
-    "description": "Download added notification"
-  },
-  "downloadError": {
-    "message": "Failed to add download to Aria2",
-    "description": "Download error notification"
-  },
-  "settingsTitle": {
-    "message": "Aria2-helper Settings",
-    "description": "Settings page title"
-  },
-  "rpcHost": {
-    "message": "RPC Host",
-    "description": "RPC host setting"
-  },
-  "rpcPort": {
-    "message": "RPC Port",
-    "description": "RPC port setting"
-  },
-  "rpcProtocol": {
-    "message": "RPC Protocol",
-    "description": "RPC protocol setting"
-  },
-  "rpcSecret": {
-    "message": "RPC Secret Token",
-    "description": "RPC secret token setting"
-  },
-  "saveSettings": {
-    "message": "Save Settings",
-    "description": "Save settings button"
-  },
-  "showNotifications": {
-    "message": "Show Notifications",
-    "description": "Show notifications setting"
-  }
+	"extName": {
+		"message": "Aria2-helper",
+		"description": "Extension name"
+	},
+	"extDescription": {
+		"message": "Automatically intercept downloads to aria2",
+		"description": "Extension description"
+	},
+	"downloadAdded": {
+		"message": "Download added to Aria2",
+		"description": "Download added notification"
+	},
+	"downloadError": {
+		"message": "Failed to add download to Aria2",
+		"description": "Download error notification"
+	},
+	"settingsTitle": {
+		"message": "Aria2-helper Settings",
+		"description": "Settings page title"
+	},
+	"rpcHost": {
+		"message": "RPC Host",
+		"description": "RPC host setting"
+	},
+	"rpcPort": {
+		"message": "RPC Port",
+		"description": "RPC port setting"
+	},
+	"rpcProtocol": {
+		"message": "RPC Protocol",
+		"description": "RPC protocol setting"
+	},
+	"rpcSecret": {
+		"message": "RPC Secret Token",
+		"description": "RPC secret token setting"
+	},
+	"saveSettings": {
+		"message": "Save Settings",
+		"description": "Save settings button"
+	},
+	"showNotifications": {
+		"message": "Show Notifications",
+		"description": "Show notifications setting"
+	}
 }

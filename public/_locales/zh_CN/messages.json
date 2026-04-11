@@ -1,46 +1,46 @@
 {
-  "extName": {
-    "message": "Aria2-helper",
-    "description": "Extension name"
-  },
-  "extDescription": {
-    "message": "自动拦截下载到 aria2",
-    "description": "Extension description"
-  },
-  "downloadAdded": {
-    "message": "下载已添加到 Aria2",
-    "description": "Download added notification"
-  },
-  "downloadError": {
-    "message": "添加下载到 Aria2 失败",
-    "description": "Download error notification"
-  },
-  "settingsTitle": {
-    "message": "Aria2-helper 设置",
-    "description": "Settings page title"
-  },
-  "rpcHost": {
-    "message": "RPC 主机",
-    "description": "RPC host setting"
-  },
-  "rpcPort": {
-    "message": "RPC 端口",
-    "description": "RPC port setting"
-  },
-  "rpcProtocol": {
-    "message": "RPC 协议",
-    "description": "RPC protocol setting"
-  },
-  "rpcSecret": {
-    "message": "RPC 密钥",
-    "description": "RPC secret token setting"
-  },
-  "saveSettings": {
-    "message": "保存设置",
-    "description": "Save settings button"
-  },
-  "showNotifications": {
-    "message": "显示通知",
-    "description": "Show notifications setting"
-  }
+	"extName": {
+		"message": "Aria2-helper",
+		"description": "Extension name"
+	},
+	"extDescription": {
+		"message": "自动拦截下载到 aria2",
+		"description": "Extension description"
+	},
+	"downloadAdded": {
+		"message": "下载已添加到 Aria2",
+		"description": "Download added notification"
+	},
+	"downloadError": {
+		"message": "添加下载到 Aria2 失败",
+		"description": "Download error notification"
+	},
+	"settingsTitle": {
+		"message": "Aria2-helper 设置",
+		"description": "Settings page title"
+	},
+	"rpcHost": {
+		"message": "RPC 主机",
+		"description": "RPC host setting"
+	},
+	"rpcPort": {
+		"message": "RPC 端口",
+		"description": "RPC port setting"
+	},
+	"rpcProtocol": {
+		"message": "RPC 协议",
+		"description": "RPC protocol setting"
+	},
+	"rpcSecret": {
+		"message": "RPC 密钥",
+		"description": "RPC secret token setting"
+	},
+	"saveSettings": {
+		"message": "保存设置",
+		"description": "Save settings button"
+	},
+	"showNotifications": {
+		"message": "显示通知",
+		"description": "Show notifications setting"
+	}
 }

@@ -1,4 +1,8 @@
 node_modules/
-dist/
+.output/
+.wxt/
+.qwen/
 *.log
 .env
+.tmp/
+*.zip

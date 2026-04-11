@@ -1,16 +1,11 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 import https from 'https';
 import http from 'http';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import AdmZip from 'adm-zip';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const ROOT_DIR = path.join(__dirname, '..');
+const ROOT_DIR = path.join(import.meta.dir, '..');
 const ARIANG_DIR = path.join(ROOT_DIR, 'public', 'ariang');
 
 const ARIANG_DOWNLOAD_URL = 'https://github.com/mayswind/AriaNg/releases/download/1.3.13/AriaNg-1.3.13.zip';
@@ -63,6 +58,8 @@ async function downloadFile(url: string, dest: string): Promise<void> {
 async function extractZip(zipPath: string, destDir: string): Promise<void> {
   console.log(`Extracting ${zipPath} to ${destDir}...`);
 
+  const { default: AdmZip } = await import('adm-zip');
+
   try {
     const zip = new AdmZip(zipPath);
     zip.extractAllTo(destDir, true);
@@ -112,8 +109,4 @@ async function downloadAriaNg(): Promise<void> {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  downloadAriaNg();
-}
-
-export default downloadAriaNg;
+downloadAriaNg();

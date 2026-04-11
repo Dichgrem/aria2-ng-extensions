@@ -1,37 +1,35 @@
 {
-  "name": "aria2-helper",
-  "version": "1.0.0",
-  "description": "Browser extension that automatically intercepts downloads to aria2",
-  "type": "module",
-  "scripts": {
-    "build": "bun run build:firefox",
-    "build:firefox": "bun scripts/build.js firefox",
-    "dev:firefox": "bun scripts/build.js firefox --watch",
-    "download:ariang": "bun scripts/download-ariang.js",
-    "lint": "biome check src/ public/",
-    "lint:fix": "biome check --write src/ public/"
-  },
-  "keywords": [
-    "aria2",
-    "browser-extension",
-    "download-manager",
-    "web-extension"
-  ],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "adm-zip": "^0.5.16",
-    "sharp": "^0.34.5"
-  },
-  "devDependencies": {
-    "@types/adm-zip": "^0.5.8",
-    "@types/archiver": "^7.0.0",
-    "@types/chrome": "^0.1.38",
-    "@types/node": "^25.5.0",
-    "archiver": "^7.0.1",
-    "biome": "^0.3.3",
-    "chokidar": "^4.0.1",
-    "esbuild": "^0.27.4",
-    "typescript": "^5.9.3"
-  }
+	"name": "aria2-helper",
+	"version": "1.0.0",
+	"author": "",
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.11",
+		"@types/adm-zip": "^0.5.8",
+		"typescript": "^5.9.3",
+		"wxt": "^0.20.20"
+	},
+	"description": "Browser extension that automatically intercepts downloads to aria2",
+	"keywords": [
+		"aria2",
+		"browser-extension",
+		"download-manager",
+		"web-extension"
+	],
+	"license": "MIT",
+	"scripts": {
+		"dev": "wxt",
+		"dev:firefox": "wxt -b firefox",
+		"build": "wxt build",
+		"build:firefox": "wxt build -b firefox",
+		"zip": "wxt zip",
+		"zip:firefox": "wxt zip -b firefox",
+		"download:ariang": "bun scripts/download-ariang.js",
+		"postinstall": "wxt prepare"
+	},
+	"type": "module",
+	"dependencies": {
+		"@types/webextension-polyfill": "^0.12.5",
+		"adm-zip": "^0.5.17",
+		"webextension-polyfill": "^0.12.0"
+	}
 }
