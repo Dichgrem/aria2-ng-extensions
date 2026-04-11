@@ -1,6 +1,7 @@
 // WXT auto-imports: browser
 
 interface Settings {
+	enabled: boolean;
 	rpcHost: string;
 	rpcPort: number;
 	rpcProtocol: string;
@@ -9,6 +10,7 @@ interface Settings {
 }
 
 const defaultSettings: Settings = {
+	enabled: true,
 	rpcHost: "localhost",
 	rpcPort: 6800,
 	rpcProtocol: "http",
@@ -31,12 +33,14 @@ async function loadSettings(): Promise<void> {
 	getEl<HTMLInputElement>("rpcSecret").value = settings.rpcSecret || "";
 	getEl<HTMLInputElement>("showNotifications").checked =
 		settings.showNotifications;
+	getEl<HTMLInputElement>("enabled").checked = settings.enabled;
 
 	testConnection();
 }
 
 async function saveSettings(): Promise<void> {
 	const settings: Settings = {
+		enabled: getEl<HTMLInputElement>("enabled").checked,
 		rpcHost: getEl<HTMLInputElement>("rpcHost").value.trim() || "localhost",
 		rpcPort: parseInt(getEl<HTMLInputElement>("rpcPort").value, 10) || 6800,
 		rpcProtocol: getEl<HTMLSelectElement>("rpcProtocol").value,

@@ -1,6 +1,7 @@
 // WXT auto-imports: browser
 
 interface Settings {
+	enabled: boolean;
 	rpcHost: string;
 	rpcPort: number;
 	rpcProtocol: string;
@@ -17,6 +18,7 @@ interface DownloadItem {
 }
 
 const DEFAULT_SETTINGS: Settings = {
+	enabled: true,
 	rpcHost: "localhost",
 	rpcPort: 6800,
 	rpcProtocol: "http",
@@ -217,6 +219,8 @@ function updateContextMenu(): void {
 function setupEventListeners(): void {
 	browser.downloads.onCreated.addListener(
 		async (downloadItem: browser.downloads.DownloadItem) => {
+			if (!settings.enabled) return;
+
 			try {
 				await browser.downloads.cancel(downloadItem.id);
 			} catch (_e) {

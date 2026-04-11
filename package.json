@@ -1,10 +1,11 @@
 {
 	"name": "aria2-helper",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"author": "",
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.11",
 		"@types/adm-zip": "^0.5.8",
+		"adm-zip": "^0.5.17",
 		"typescript": "^5.9.3",
 		"wxt": "^0.20.20"
 	},
@@ -26,10 +27,5 @@
 		"download:ariang": "bun scripts/download-ariang.js",
 		"postinstall": "wxt prepare"
 	},
-	"type": "module",
-	"dependencies": {
-		"@types/webextension-polyfill": "^0.12.5",
-		"adm-zip": "^0.5.17",
-		"webextension-polyfill": "^0.12.0"
-	}
+	"type": "module"
 }

@@ -56,6 +56,22 @@
       transform: translateY(0);
     }
 
+    .btn-active {
+      background: #1a7f37;
+    }
+
+    .btn-active:hover {
+      background: #238636;
+    }
+
+    .btn-inactive {
+      background: #6e4010;
+    }
+
+    .btn-inactive:hover {
+      background: #9e6a18;
+    }
+
     .btn-secondary {
       background: #cc3333;
       color: #ffffff;
@@ -79,6 +95,7 @@
   <div class="container">
     <h1 aria-label="Extension Name">Aria2-helper</h1>
 
+    <button id="toggleEnabled" class="btn" type="button">Intercepting: ON</button>
     <button id="openAriang" class="btn" type="button">Open Panel</button>
     <button id="openSettings" class="btn btn-secondary" type="button">Settings</button>
 

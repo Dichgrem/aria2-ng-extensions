@@ -1,6 +1,7 @@
 // WXT auto-imports: browser
 
 interface Settings {
+	enabled: boolean;
 	rpcHost: string;
 	rpcPort: number;
 	rpcProtocol: string;
@@ -11,6 +12,7 @@ const getEl = <T extends HTMLElement>(id: string): T =>
 	document.getElementById(id) as T;
 
 document.addEventListener("DOMContentLoaded", async () => {
+	const toggleBtn = getEl<HTMLButtonElement>("toggleEnabled");
 	const openAriangBtn = getEl<HTMLButtonElement>("openAriang");
 	const openSettingsBtn = getEl<HTMLButtonElement>("openSettings");
 
@@ -18,11 +20,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 		settings?: Settings;
 	};
 	const settings: Settings = stored.settings ?? {
+		enabled: true,
 		rpcHost: "localhost",
 		rpcPort: 6800,
 		rpcProtocol: "http",
 		rpcSecret: "",
 	};
+
+	updateToggleUI(settings.enabled);
+
+	toggleBtn.addEventListener("click", async () => {
+		const newEnabled = !settings.enabled;
+		settings.enabled = newEnabled;
+		await browser.storage.local.set({ settings });
+		updateToggleUI(newEnabled);
+	});
 
 	openAriangBtn.addEventListener("click", () => {
 		const protocol = settings.rpcProtocol === "https" ? "https" : "http";
@@ -40,4 +52,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 		browser.runtime.openOptionsPage();
 		window.close();
 	});
+
+	function updateToggleUI(enabled: boolean): void {
+		toggleBtn.textContent = enabled ? "Intercepting: ON" : "Intercepting: OFF";
+		toggleBtn.className = enabled ? "btn btn-active" : "btn btn-inactive";
+	}
 });
