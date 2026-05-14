@@ -28,6 +28,8 @@ const DEFAULT_SETTINGS: Settings = {
 
 const ARIA2_ID = `aria2-ng-extension-${Date.now()}`;
 
+const SKIP_URLS = new Set<string>();
+
 let settings: Settings = { ...DEFAULT_SETTINGS };
 let rpcUrl: string | null = null;
 
@@ -124,23 +126,34 @@ async function addDownloadToAria2(
 	referer: string,
 	cookies: string,
 ): Promise<void> {
+	await browser.downloads.erase({ id: downloadItem.id });
+	await addDownloadUrlToAria2(
+		downloadItem.url,
+		referer,
+		cookies,
+		downloadItem.filename?.split("/").pop(),
+	);
+}
+
+async function addDownloadUrlToAria2(
+	url: string,
+	referer: string,
+	cookies: string,
+	filename?: string,
+): Promise<void> {
 	try {
-		await browser.downloads.erase({ id: downloadItem.id });
-
-		let params: unknown[] = [];
-
-		if (downloadItem.url.match(/\.(torrent|metalink4?)$/i)) {
-			const response = await fetch(downloadItem.url);
+		if (url.match(/\.(torrent|metalink4?)$/i)) {
+			const response = await fetch(url);
 			const blob = await response.blob();
 			const base64 = await blobToBase64(blob);
 
-			if (downloadItem.url.endsWith(".torrent")) {
+			if (url.endsWith(".torrent")) {
 				await sendAria2Request("aria2.addTorrent", [base64, [], {}]);
 			} else {
 				await sendAria2Request("aria2.addMetalink", [base64, [], {}]);
 			}
 		} else {
-			params = [[downloadItem.url]];
+			const params: unknown[] = [[url]];
 
 			const options: Record<string, unknown> = {};
 			if (referer) {
@@ -150,9 +163,8 @@ async function addDownloadToAria2(
 				options.header = options.header || [];
 				(options.header as string[]).push(`Cookie: ${cookies}`);
 			}
-
-			if (downloadItem.filename) {
-				options.out = downloadItem.filename.split("/").pop();
+			if (filename) {
+				options.out = filename;
 			}
 
 			params.push(options);
@@ -217,9 +229,58 @@ function updateContextMenu(): void {
 }
 
 function setupEventListeners(): void {
+	browser.webRequest.onHeadersReceived.addListener(
+		(details) => {
+			if (!settings.enabled) return {};
+
+			const disp = details.responseHeaders?.find(
+				(h) => h.name.toLowerCase() === "content-disposition",
+			);
+			if (!disp?.value?.includes("attachment")) return {};
+
+			const url = details.url;
+			const tabId = details.tabId;
+
+			if (details.method !== "GET") {
+				SKIP_URLS.add(url);
+				setTimeout(() => SKIP_URLS.delete(url), 10000);
+				return {};
+			}
+
+			let filename: string | undefined;
+			const m =
+				disp.value.match(/filename\*=UTF-8''(.+?)(?:;|$)/i) ??
+				disp.value.match(/filename="(.+?)"/i) ??
+				disp.value.match(/filename=([^;\s]+)/i);
+			if (m) {
+				filename = decodeURIComponent(m[1].replace(/"/g, ""));
+			}
+
+			(async () => {
+				try {
+					const referer =
+						tabId >= 0 ? (await browser.tabs.get(tabId)).url || "" : "";
+					const cookies = await getCookies(url, tabId);
+					await addDownloadUrlToAria2(url, referer, cookies, filename);
+				} catch (error) {
+					console.error("Error handling webRequest download:", error);
+				}
+			})();
+
+			return { cancel: true };
+		},
+		{ urls: ["<all_urls>"], types: ["main_frame", "sub_frame"] },
+		["blocking", "responseHeaders"],
+	);
+
 	browser.downloads.onCreated.addListener(
 		async (downloadItem: browser.downloads.DownloadItem) => {
 			if (!settings.enabled) return;
+			if (SKIP_URLS.has(downloadItem.url)) {
+				SKIP_URLS.delete(downloadItem.url);
+				return;
+			}
+			if (/^(blob|data):/i.test(downloadItem.url)) return;
 
 			try {
 				await browser.downloads.cancel(downloadItem.id);

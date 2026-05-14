@@ -12,6 +12,8 @@ export default defineConfig({
 			"notifications",
 			"storage",
 			"tabs",
+			"webRequest",
+			"webRequestBlocking",
 		],
 		host_permissions: ["<all_urls>"],
 		browser_specific_settings: {

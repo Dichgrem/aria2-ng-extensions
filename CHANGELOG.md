@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [3.0.0] - 2026-05-14
+
+### Added
+- `webRequest` + `webRequestBlocking` permissions for pre-download interception
+- `webRequest.onHeadersReceived` listener: intercepts `Content-Disposition: attachment` responses before the body arrives, preventing one-time signed URLs (e.g. GitHub) from being consumed by the browser before aria2 can fetch them
+
+### Fixed
+- Small files (<1MB) from services like GitHub failing in aria2 — browser was finishing the download and consuming the signed URL before cancel could take effect
+- POST-triggered downloads (e.g. OpenWrt LuCI mtdblock export) being cancelled and lost — now detected via `SKIP_URLS` and left to the browser
+- `blob:` / `data:` URL downloads being sent to aria2 (which can't access local protocols) — now skipped
+
+### Changed
+- Download-to-aria2 logic extracted into shared `addDownloadUrlToAria2()` function used by both `webRequest` and `downloads.onCreated` paths
+
 ## [2.0.0] - 2026-04-11
 
 ### Added
